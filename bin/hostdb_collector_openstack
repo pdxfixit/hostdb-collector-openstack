@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+require 'hostdb_collector_openstack'
+require 'optparse'
+
+options = {}
+
+opt_parser = OptionParser.new do |opts|
+  opts.banner = 'Usage: openstack-collector [OPTIONS]'
+  opts.separator 'Options:'
+  opts.on('--openstack_username <username>',
+          'Openstack user with permission to list VMs in ALL tenants') do |openstack_username|
+    options[:openstack_username] = openstack_username
+  end
+  opts.on('--openstack_password <password>',
+          'Password for the openstack user') do |openstack_password|
+    options[:openstack_password] = openstack_password
+  end
+  opts.on('--hostdb_username <username>',
+          'Host DB API user with permission to execute POST/PUT requests') do |hostdb_username|
+    options[:hostdb_username] = hostdb_username
+  end
+  opts.on('--hostdb_password <password>',
+          'Password for the HostDB user') do |hostdb_password|
+    options[:hostdb_password] = hostdb_password
+  end
+  opts.on('--datacenter <datacenter>',
+          'Datacenter for the collector to poll') do |datacenter|
+    options[:datacenter] = datacenter
+  end
+end
+opt_parser.parse!(ARGV)
+
+collector = CollectorProcessor.new(options)
+exit_code = collector.process
+exit exit_code

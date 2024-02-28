@@ -1,0 +1,9 @@
+---
+  hostdb_url: https://hostdb.pdxfixit.com
+  tenant_blocklist:
+    - va_s1_bld
+    - va_s1_blp
+    - va_s1_blq
+    - va_s1_jrp
+    - va_s1_jrx
+    - va_s1_webapp
